@@ -11,6 +11,16 @@
         android:name=".MyApplicaton"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".activity.FrameActivity" />
+        <activity android:name=".activity.LottieActivity" />
+        <activity android:name=".activity.SVGAActivity" />
+        <activity android:name=".activity.LeonidActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
