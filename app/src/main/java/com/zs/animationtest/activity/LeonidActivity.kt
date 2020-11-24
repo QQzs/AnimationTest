@@ -6,6 +6,7 @@ import com.plattysoft.leonids.ParticleSystem
 import com.zs.animationtest.R
 import com.zs.animationtest.util.AnimationUtil
 import com.zs.animationtest.util.SystemTool
+import kotlinx.android.synthetic.main.activity_leonid.*
 
 /**
  * @Author: zs
@@ -18,6 +19,10 @@ class LeonidActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_leonid)
+
+        tv_particle?.setOnClickListener {
+            showParticleSystem()
+        }
     }
 
     /**

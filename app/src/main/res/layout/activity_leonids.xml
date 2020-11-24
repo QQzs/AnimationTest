@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_433b4f"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/all_anim"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            android:textColor="#ffffff"
+            android:text="all_anim"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_anim1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            android:textColor="#ffffff"
+            android:text="anim1"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_anim2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            android:textColor="#ffffff"
+            android:text="anim2"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_anim3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            android:textColor="#ffffff"
+            android:text="anim3"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_anim4"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            android:textColor="#ffffff"
+            android:text="anim4"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <com.zs.animationtest.view.ScrollAnimView
+        android:id="@+id/scroll_anim_view"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:visibility="visible">
+
+        <com.zs.animationtest.view.ScrollInnerAnimView
+            android:id="@+id/scroll_inner_anim_view"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_msg"/>
+
+        <View
+            android:id="@+id/view_avatar"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/bg_avatar"/>
+
+        <com.zs.animationtest.view.CircleView
+            android:id="@+id/circle_view"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+    </com.zs.animationtest.view.ScrollAnimView>
+
+
+
+</LinearLayout>

@@ -20,7 +20,8 @@
         <activity android:name=".activity.FrameActivity" />
         <activity android:name=".activity.LottieActivity" />
         <activity android:name=".activity.SVGAActivity" />
-        <activity android:name=".activity.LeonidActivity">
+        <activity android:name=".activity.LeonidActivity"/>
+        <activity android:name=".LeonidsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
