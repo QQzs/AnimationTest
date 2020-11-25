@@ -38,25 +38,21 @@ public class ScrollAnimView extends FrameLayout {
     /**
      * 进场时间
      */
-    private long mEnterDuration = 2000;
+    private long mEnterDuration = 4000;
     /**
      * 出场时间
      */
-    private long mOutDuration = 2000;
+    private long mOutDuration = 3000;
 
     /**
      * 滚动正在执行
      */
     private boolean mAnimScrolling;
 
-    int width;
-    int height;
+    private int width;
+    private int height;
 
-    int randomX = 0;
-    int randomY = 0;
-    LayoutParams params;
-
-    private Random mRandom;
+    private LayoutParams params;
 
     public ScrollAnimView(Context context) {
         this(context, null);
@@ -70,7 +66,6 @@ public class ScrollAnimView extends FrameLayout {
         super(context, attrs, defStyleAttr);
         initEnterOutAnim();
         params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mRandom = new Random();
     }
 
     @Override
@@ -78,12 +73,7 @@ public class ScrollAnimView extends FrameLayout {
         super.onSizeChanged(w, h, oldw, oldh);
         width = w;
         height = h;
-
-        randomX = width - height;
-        randomY = height;
-
         Log.d("zhang","width = " + width + " height = " + height);
-
     }
 
     /**
@@ -114,6 +104,7 @@ public class ScrollAnimView extends FrameLayout {
         if (mOutObjAnim == null) {
             mOutObjAnim = ObjectAnimator.ofFloat(this, "translationX", 0f, -screenWidth);
             mOutObjAnim.setDuration(mOutDuration);
+            mOutObjAnim.setStartDelay(1000);
             mOutObjAnim.setInterpolator(null);
             mOutObjAnim.addListener(new AnimatorListenerAdapter() {
                 @Override
@@ -122,7 +113,6 @@ public class ScrollAnimView extends FrameLayout {
                     // 动画结束
                     mAnimScrolling = false;
                     setVisibility(View.INVISIBLE);
-
                 }
             });
         }
@@ -138,73 +128,5 @@ public class ScrollAnimView extends FrameLayout {
         setVisibility(View.VISIBLE);
         mEnterObjAnim.start();
     }
-
-    public void addAnimView(int drawable, int count) {
-        Bitmap imageBitmap = BitmapFactory.decodeResource(getContext().getResources(), drawable);
-        int imageHeight = imageBitmap.getHeight();
-        for (int i = 0; i < count; i++) {
-            ImageView view = new ImageView(getContext());
-            view.setScaleX(0f);
-            view.setScaleY(0f);
-            int repeatCount = 10;
-            int delay = mRandom.nextInt(1000);
-            int x = mRandom.nextInt(randomX)  + height / 2;
-            int y = mRandom.nextInt(randomY) - imageHeight / 2;
-
-            view.setX(x);
-            view.setY(y);
-//            view.setImageResource(drawable);
-            view.setImageBitmap(imageBitmap);
-            addView(view, params);
-
-            ObjectAnimator alpha = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f, 0f);
-            alpha.setRepeatCount(repeatCount);
-            ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", 0f, 0.5f, 0f);
-            scaleX.setRepeatCount(repeatCount);
-            ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", 0f, 0.5f, 0f);
-            scaleY.setRepeatCount(repeatCount);
-            ObjectAnimator rotation = ObjectAnimator.ofFloat(view, "rotation", 0f, 360f);
-            rotation.setRepeatCount(repeatCount);
-            AnimatorSet animSet = new AnimatorSet();
-            animSet.playTogether(alpha, scaleX, scaleY, rotation);
-            animSet.setDuration(2000);
-            animSet.setStartDelay(delay);
-            animSet.start();
-        }
-    }
-
-    public void addRotationView(int drawable, int count) {
-        Bitmap imageBitmap = BitmapFactory.decodeResource(getContext().getResources(), drawable);
-        int imageHeight = imageBitmap.getHeight();
-        for (int i = 0; i < count; i++) {
-            final ImageView view = new ImageView(getContext());
-            view.setScaleX(0.2f);
-            view.setScaleY(0.2f);
-            int repeatCount = 10;
-            int delay = mRandom.nextInt(1000);
-            int x = mRandom.nextInt(randomX) + height / 2;
-            int y = mRandom.nextInt(randomY) - imageHeight / 5;
-
-            view.setX(x);
-            view.setY(y);
-//            view.setImageResource(drawable);
-            view.setImageBitmap(imageBitmap);
-            addView(view, params);
-
-            ObjectAnimator rotation = ObjectAnimator.ofFloat(view, "rotation", 0f, 360f);
-            rotation.setRepeatCount(repeatCount);
-            rotation.setDuration(2000);
-            rotation.setStartDelay(delay);
-            rotation.start();
-            rotation.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    view.setAlpha(0f);
-                }
-            });
-        }
-    }
-
 
 }

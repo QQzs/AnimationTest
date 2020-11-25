@@ -14,6 +14,14 @@ import com.plattysoft.leonids.ParticleSystem;
 import com.zs.animationtest.view.CircleView;
 import com.zs.animationtest.view.ScrollAnimView;
 import com.zs.animationtest.view.ScrollInnerAnimView;
+import com.zs.animationtest.view.particle.DriftStar.DriftStarDraw;
+import com.zs.animationtest.view.particle.IParticleDraw;
+import com.zs.animationtest.view.particle.ParticleView;
+import com.zs.animationtest.view.particle.PointStar.PointStarDraw;
+import com.zs.animationtest.view.particle.star.StarDraw;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: zs
@@ -24,9 +32,10 @@ public class LeonidsActivity extends AppCompatActivity implements View.OnClickLi
 
     private ScrollAnimView scroll_anim_view;
     private ScrollInnerAnimView scroll_inner_anim_view;
-    private TextView all_anim, tv_anim1, tv_anim2, tv_anim3, tv_anim4;
+    private TextView all_anim, tv_anim1, tv_anim2, tv_anim3, tv_anim4, tv_anim5;
     private View view_avatar;
     private CircleView circle_view;
+    private ParticleView particle_view;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,13 +49,16 @@ public class LeonidsActivity extends AppCompatActivity implements View.OnClickLi
         tv_anim2 = findViewById(R.id.tv_anim2);
         tv_anim3 = findViewById(R.id.tv_anim3);
         tv_anim4 = findViewById(R.id.tv_anim4);
+        tv_anim5 = findViewById(R.id.tv_anim5);
         circle_view = findViewById(R.id.circle_view);
+        particle_view = findViewById(R.id.particle_view);
 
         all_anim.setOnClickListener(this);
         tv_anim1.setOnClickListener(this);
         tv_anim2.setOnClickListener(this);
         tv_anim3.setOnClickListener(this);
         tv_anim4.setOnClickListener(this);
+        tv_anim5.setOnClickListener(this);
 
     }
 
@@ -63,7 +75,18 @@ public class LeonidsActivity extends AppCompatActivity implements View.OnClickLi
             test3();
         } else if (id == R.id.tv_anim4) {
             test4();
+        } else if (id == R.id.tv_anim5) {
+            test5();
         }
+    }
+
+    private void test5() {
+        List<IParticleDraw> list = new ArrayList<>();
+        list.add(new StarDraw(this, R.drawable.star_white, 20));
+        list.add(new PointStarDraw(this, R.drawable.star, 15));
+        list.add(new DriftStarDraw(this, R.drawable.star_white, 20));
+        list.add(new DriftStarDraw(this, R.drawable.star_pink, 20));
+        particle_view.startAnim(list);
     }
 
     private void test4() {
@@ -97,8 +120,7 @@ public class LeonidsActivity extends AppCompatActivity implements View.OnClickLi
 
 
     private void test2() {
-        scroll_anim_view.addAnimView(R.drawable.star_white, 15);
-        scroll_anim_view.addRotationView(R.drawable.star, 15);
+
     }
 
     private void test1() {
@@ -131,11 +153,12 @@ public class LeonidsActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void allAnim() {
-        test1();
-        test2();
-        test3();
-        test4();
-//        scroll_anim_view.startScroll();
+//        test1();
+//        test2();
+//        test3();
+//        test4();
+        test5();
+        scroll_anim_view.startScroll();
     }
 
 }

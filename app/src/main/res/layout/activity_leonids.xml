@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
@@ -70,20 +70,47 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_anim5"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            android:textColor="#ffffff"
+            android:text="anim5"
+            android:gravity="center" />
+
+
+    </LinearLayout>
+
     <com.zs.animationtest.view.ScrollAnimView
         android:id="@+id/scroll_anim_view"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <com.zs.animationtest.view.ScrollInnerAnimView
             android:id="@+id/scroll_inner_anim_view"
             android:layout_width="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_height="30dp"
-            android:background="@drawable/bg_msg"/>
+            android:background="@drawable/bg_msg" />
+
+        <com.zs.animationtest.view.particle.ParticleView
+            android:id="@+id/particle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="30dp"/>
 
         <View
             android:id="@+id/view_avatar"
@@ -97,7 +124,5 @@
             android:layout_height="35dp" />
 
     </com.zs.animationtest.view.ScrollAnimView>
-
-
 
 </LinearLayout>
