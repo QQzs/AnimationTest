@@ -158,8 +158,14 @@ public class LeonidsActivity extends AppCompatActivity implements View.OnClickLi
 //        test3();
 //        test4();
         test5();
-        scroll_inner_anim_view.startFire();
+        scroll_inner_anim_view.startAnim();
         scroll_anim_view.startScroll();
+        scroll_anim_view.setOutListener(new ScrollAnimView.OuterListener() {
+            @Override
+            public void backValue(float value) {
+                scroll_inner_anim_view.setScrollStatus(value);
+            }
+        });
     }
 
 }

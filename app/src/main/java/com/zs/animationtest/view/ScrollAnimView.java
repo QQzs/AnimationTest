@@ -2,21 +2,14 @@ package com.zs.animationtest.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.zs.animationtest.util.SystemTool;
-
-import java.util.Random;
 
 /**
  * @Author: zs
@@ -52,7 +45,7 @@ public class ScrollAnimView extends FrameLayout {
     private int width;
     private int height;
 
-    private LayoutParams params;
+    private OuterListener outListener;
 
     public ScrollAnimView(Context context) {
         this(context, null);
@@ -65,7 +58,6 @@ public class ScrollAnimView extends FrameLayout {
     public ScrollAnimView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initEnterOutAnim();
-        params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     @Override
@@ -73,14 +65,13 @@ public class ScrollAnimView extends FrameLayout {
         super.onSizeChanged(w, h, oldw, oldh);
         width = w;
         height = h;
-        Log.d("zhang","width = " + width + " height = " + height);
     }
 
     /**
      * 初始化进场和出场动画
      */
     public void initEnterOutAnim() {
-        int screenWidth = SystemTool.getScreenWidth();
+        final int screenWidth = SystemTool.getScreenWidth();
         if (mEnterObjAnim == null) {
             mEnterObjAnim = ObjectAnimator.ofFloat(this, "translationX", screenWidth, 0f);
             mEnterObjAnim.setDuration(mEnterDuration);
@@ -115,6 +106,16 @@ public class ScrollAnimView extends FrameLayout {
                     setVisibility(View.INVISIBLE);
                 }
             });
+
+            mOutObjAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    float value = (float) valueAnimator.getAnimatedValue();
+                    if (outListener != null) {
+                        outListener.backValue(- value / screenWidth);
+                    }
+                }
+            });
         }
     }
 
@@ -127,6 +128,14 @@ public class ScrollAnimView extends FrameLayout {
         }
         setVisibility(View.VISIBLE);
         mEnterObjAnim.start();
+    }
+
+    public void setOutListener(OuterListener listener) {
+        this.outListener = listener;
+    }
+
+    public interface OuterListener{
+        void backValue(float value);
     }
 
 }

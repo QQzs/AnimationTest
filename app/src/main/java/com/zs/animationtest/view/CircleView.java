@@ -21,6 +21,8 @@ public class CircleView extends FrameLayout {
     private ImageView middle;
     private ImageView inner;
 
+    private ValueAnimator animator;
+
     public CircleView(Context context) {
         this(context, null);
     }
@@ -62,7 +64,7 @@ public class CircleView extends FrameLayout {
     }
 
     public void startAnim() {
-        ValueAnimator animator = ValueAnimator.ofInt(0, 60, 0);
+        animator = ValueAnimator.ofInt(0, 60, 0);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -77,4 +79,16 @@ public class CircleView extends FrameLayout {
         animator.start();
     }
 
+    public void stopAnim() {
+        if (animator.isRunning()) {
+            animator.cancel();
+        }
+        animator = null;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        stopAnim();
+    }
 }
