@@ -21,18 +21,14 @@ class PointStarBean extends IParticleBean {
      */
     public Point mCurrentPoint;
 
+    /**
+     * 旋转
+     */
     private int rotation;
+    /**
+     * 旋转变化值
+     */
     private int rotationSpace;
-
-    private Bitmap mBitmap;
-
-    private int mViewHeight;
-
-    private int mViewWidth;
-
-    private Paint mPaint;
-
-    private ArrayList<Bitmap> mBitmapsList;
 
     public PointStarBean(int viewWidth, int viewHeight, ArrayList<Bitmap> bitmapsList) {
         this.mViewWidth = viewWidth;
@@ -52,16 +48,19 @@ class PointStarBean extends IParticleBean {
         rotationSpace = random.nextInt(6) + 1;
         if (mBitmap != null) {
             int height = mBitmap.getHeight();
-            mCurrentPoint = new Point(random.nextInt(mViewWidth - mBitmap.getWidth()), random.nextInt(mViewHeight - height));
+            mCurrentPoint = new Point(random.nextInt(mViewWidth - mBitmap.getWidth()),
+                    random.nextInt(mViewHeight - height));
         }
     }
 
     @Override
     public void drawNextFrame(Canvas canvas, Paint paint) {
         if (mBitmap != null) {
+            // 旋转角度变化
             rotation += rotationSpace;
             canvas.save();
-            canvas.rotate(rotation, mCurrentPoint.x + (mBitmap.getWidth() >> 1), mCurrentPoint.y + (mBitmap.getHeight() >> 1));
+            canvas.rotate(rotation, mCurrentPoint.x + (mBitmap.getWidth() >> 1),
+                    mCurrentPoint.y + (mBitmap.getHeight() >> 1));
             canvas.drawBitmap(mBitmap, mCurrentPoint.x, mCurrentPoint.y, mPaint);
             canvas.restore();
         } else {

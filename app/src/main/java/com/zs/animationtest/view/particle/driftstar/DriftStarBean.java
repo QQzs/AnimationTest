@@ -31,21 +31,17 @@ class DriftStarBean extends IParticleBean {
      */
     private int alphaSpace;
 
+    /**
+     * 旋转
+     */
     private int rotation;
+    /**
+     * 旋转变化值
+     */
     private int rotationSpace;
 
     private int pointX;
     private int pointXSpace;
-
-    private Bitmap mBitmap;
-
-    private int mViewHeight;
-
-    private int mViewWidth;
-
-    private Paint mPaint;
-
-    private ArrayList<Bitmap> mBitmapsList;
 
     public DriftStarBean(int viewWidth, int viewHeight, ArrayList<Bitmap> bitmapsList) {
         this.mViewWidth = viewWidth;
@@ -97,7 +93,8 @@ class DriftStarBean extends IParticleBean {
             rotation += rotationSpace;
             mCurrentPoint.x = pointX;
             canvas.save();
-            canvas.rotate(rotation, mCurrentPoint.x + (mBitmap.getWidth() >> 1), mCurrentPoint.y + (mBitmap.getHeight() >> 1));
+            canvas.rotate(rotation, mCurrentPoint.x + (mBitmap.getWidth() >> 1),
+                    mCurrentPoint.y + (mBitmap.getHeight() >> 1));
             canvas.drawBitmap(mBitmap, mCurrentPoint.x, mCurrentPoint.y, mPaint);
             canvas.restore();
         } else {

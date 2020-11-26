@@ -55,17 +55,8 @@ public class ScrollInnerAnimView extends LinearLayout {
         height = h;
     }
 
-    public ImageView addFireView(int x, int y) {
-        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        ImageView view = new ImageView(getContext());
-        view.setX(x);
-        view.setY(y);
-        addView(view, params);
-        return view;
-    }
-
-    private void addFireView() {
-        for (int i = 0; i < 10; i++) {
+    private void addFireView(int maxCount) {
+        for (int i = 0; i < maxCount; i++) {
             ImageView view = new ImageView(getContext());
             view.setX(random.nextInt(width - 50));
             view.setY(random.nextInt(height));
@@ -86,16 +77,16 @@ public class ScrollInnerAnimView extends LinearLayout {
         }
     }
 
-    public void startAnim() {
+    public void startAnim(int maxCount) {
         scrollValue = 0f;
         fireViews.clear();
-        addFireView();
+        addFireView(maxCount);
         addFireAnim();
     }
 
     private void addFireAnim() {
         if (handler != null) {
-            handler.postDelayed(runnable , 400);
+            handler.postDelayed(runnable , 500);
         }
     }
 
@@ -123,22 +114,22 @@ public class ScrollInnerAnimView extends LinearLayout {
             if (activity.isFinishing()) {
                 return;
             }
-            ParticleSystem particleSystem = new ParticleSystem(activity, 150, R.drawable.star_pink, 400);
+            ParticleSystem particleSystem = new ParticleSystem(activity, 80, R.drawable.star_pink, 500);
             // 设置大小范围
             particleSystem.setScaleRange(0.5f, 0.5f);
             // 设置速度范围和发射角度范围
-            particleSystem.setSpeedModuleAndAngleRange(0.03f, 0.06f, 0, 360);
-            particleSystem.setFadeOut(200, new DecelerateInterpolator());
-            particleSystem.emit(imageView, 150, 400);
+            particleSystem.setSpeedModuleAndAngleRange(0.04f, 0.06f, 0, 360);
+            particleSystem.setFadeOut(300, new DecelerateInterpolator());
+            particleSystem.emit(imageView, 150, 500);
 
 
-            ParticleSystem particleSystem2 = new ParticleSystem(activity, 70, R.drawable.star_pink, 400);
+            ParticleSystem particleSystem2 = new ParticleSystem(activity, 70, R.drawable.star_pink, 500);
             // 设置大小范围
             particleSystem2.setScaleRange(0.5f, 0.5f);
             // 设置速度范围和发射角度范围
-            particleSystem2.setSpeedModuleAndAngleRange(0.06f, 0.06f, 0, 360);
-            particleSystem2.setFadeOut(200, new DecelerateInterpolator());
-            particleSystem2.oneShot(imageView, 60);
+            particleSystem2.setSpeedModuleAndAngleRange(0.05f, 0.05f, 0, 360);
+            particleSystem2.setFadeOut(300, new DecelerateInterpolator());
+            particleSystem2.oneShot(imageView, 40);
         }
     }
 

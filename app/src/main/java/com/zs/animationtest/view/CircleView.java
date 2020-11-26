@@ -80,7 +80,7 @@ public class CircleView extends FrameLayout {
     }
 
     public void stopAnim() {
-        if (animator.isRunning()) {
+        if (animator != null && animator.isRunning()) {
             animator.cancel();
         }
         animator = null;

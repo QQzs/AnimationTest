@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -12,6 +13,16 @@ import java.util.Random;
  * @Description:
  */
 public abstract class IParticleBean {
+
+    public int mViewHeight;
+
+    public int mViewWidth;
+
+    public Paint mPaint;
+
+    public Bitmap mBitmap;
+
+    public ArrayList<Bitmap> mBitmapsList;
 
     /**
      * 产生随机数

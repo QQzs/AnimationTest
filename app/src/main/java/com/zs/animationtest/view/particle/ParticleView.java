@@ -8,15 +8,12 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,24 +31,12 @@ public class ParticleView extends SurfaceView implements SurfaceHolder.Callback 
 
     private SurfaceHolder mSurfaceHolder;
 
-    public static int framerate = 50;
+    public static int frameRate = 50;
 
     private List<IParticleDraw> effectList;
 
     //绘制线程
     private DrawThread mDrawThread;
-
-    //检查是否播放下一个特效的handler
-    private Handler mCheckhandler = new Handler(Looper.getMainLooper()) {
-
-        @Override
-        public void handleMessage(Message msg) {
-//            if (effectList != null && effectList.size() > 0) {
-//                mDrawThread = new DrawThread(effectList);
-//                mDrawThread.start();
-//            }
-        }
-    };
 
     public ParticleView(Context context) {
         this(context, null);
@@ -67,6 +52,7 @@ public class ParticleView extends SurfaceView implements SurfaceHolder.Callback 
     }
 
     private void init() {
+        effectList = new ArrayList<>();
         mSurfaceHolder = getHolder();
         mSurfaceHolder.addCallback(this);
         setZOrderOnTop(true);
@@ -93,7 +79,6 @@ public class ParticleView extends SurfaceView implements SurfaceHolder.Callback 
         super.onSizeChanged(w, h, oldw, oldh);
         mViewWidth = w;
         mViewHeight = h;
-        Log.d("zhang", "mViewWidth = " + mViewWidth + " mViewHeight = " + mViewHeight);
     }
 
     public void startAnim(List<IParticleDraw> list) {
@@ -102,12 +87,11 @@ public class ParticleView extends SurfaceView implements SurfaceHolder.Callback 
         }
         this.effectList = list;
         for (int i = 0; i < effectList.size(); i++) {
+            // 创建粒子
             effectList.get(i).createParticle(mViewWidth, mViewHeight);
         }
-        if (mDrawThread == null) {
-            mDrawThread = new DrawThread(effectList);
-            mDrawThread.start();
-        }
+        mDrawThread = new DrawThread(effectList);
+        mDrawThread.start();
     }
 
     /**
@@ -134,7 +118,7 @@ public class ParticleView extends SurfaceView implements SurfaceHolder.Callback 
             //无限循环绘制
             while (showEffect) {
                 try {
-                    Thread.sleep(1000 / framerate);
+                    Thread.sleep(1000 / frameRate);
                     canvas = mSurfaceHolder.lockCanvas();
                     if (canvas != null && effectList != null && effectList.size() > 0) {
                         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
@@ -157,8 +141,7 @@ public class ParticleView extends SurfaceView implements SurfaceHolder.Callback 
                     }
                 }
             }
-            //出了while代表停止了特效，最后在检查一次是否需要播放新的特效
-            //画一帧透明的涂层
+            // 画一帧透明的涂层
             if (mSurfaceHolder != null) {
                 canvas = mSurfaceHolder.lockCanvas();
                 if (canvas != null) {
@@ -171,10 +154,6 @@ public class ParticleView extends SurfaceView implements SurfaceHolder.Callback 
                 for (int i = 0; i < effectList.size(); i++) {
                     effectList.get(i).destroy();
                 }
-            }
-            //检查是否需要播放新特效
-            if (mCheckhandler != null) {
-                mCheckhandler.sendEmptyMessageDelayed(1,100);
             }
         }
 
@@ -200,12 +179,9 @@ public class ParticleView extends SurfaceView implements SurfaceHolder.Callback 
         return null;
     }
 
-    private void reset() {
-        Log.e(TAG,"reset");
-        effectList.clear();
-        if (mCheckhandler != null) {
-            mCheckhandler.removeCallbacksAndMessages(null);
-            mCheckhandler = null;
+    public void stopAnim() {
+        if (effectList != null) {
+            effectList.clear();
         }
         if (mDrawThread != null && mDrawThread.isAlive()) {
             mDrawThread.stopDraw();
@@ -215,6 +191,6 @@ public class ParticleView extends SurfaceView implements SurfaceHolder.Callback 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-//        reset();
+        stopAnim();
     }
 }

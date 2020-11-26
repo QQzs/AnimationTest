@@ -104,6 +104,9 @@ public class ScrollAnimView extends FrameLayout {
                     // 动画结束
                     mAnimScrolling = false;
                     setVisibility(View.INVISIBLE);
+                    if (outListener != null) {
+                        outListener.scrollEnd();
+                    }
                 }
             });
 
@@ -136,6 +139,7 @@ public class ScrollAnimView extends FrameLayout {
 
     public interface OuterListener{
         void backValue(float value);
+        void scrollEnd();
     }
 
 }

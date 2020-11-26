@@ -8,7 +8,6 @@ import android.graphics.Point;
 import com.zs.animationtest.view.particle.IParticleBean;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * @Author: zs
@@ -32,20 +31,19 @@ class StarBean extends IParticleBean {
      */
     private int alphaSpace;
 
+    /**
+     * 旋转
+     */
     private int rotation;
+    /**
+     * 旋转变化值
+     */
     private int rotationSpace;
 
+    /**
+     * 大小
+     */
     private float scale;
-
-    private int mViewHeight;
-
-    private int mViewWidth;
-
-    private Paint mPaint;
-
-    public Bitmap mBitmap;
-
-    private ArrayList<Bitmap> mBitmapsList;
 
     public StarBean(int viewWidth, int viewHeight, ArrayList<Bitmap> bitmapsList) {
         this.mViewWidth = viewWidth;
@@ -77,6 +75,7 @@ class StarBean extends IParticleBean {
     @Override
     public void drawNextFrame(Canvas canvas, Paint paint) {
         if (mBitmap != null) {
+            // 透明度变化
             alpha -= alphaSpace;
             if (alpha < 0) {
                 alpha = 0;
@@ -85,9 +84,11 @@ class StarBean extends IParticleBean {
                 alpha = 255;
                 alphaSpace = -alphaSpace;
             }
+            // 大小根据透明度变化
             scale = 1.0f * alpha / 255;
             mPaint.setAlpha(alpha);
 
+            // 旋转变化
             rotation += rotationSpace;
 
             float px = mCurrentPoint.x + (mBitmap.getWidth() >> 1);

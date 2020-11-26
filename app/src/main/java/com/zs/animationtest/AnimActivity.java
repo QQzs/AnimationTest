@@ -3,8 +3,6 @@ package com.zs.animationtest;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -28,7 +26,7 @@ import java.util.List;
  * @Date: 2020/11/23 3:34 PM
  * @Description:
  */
-public class LeonidsActivity extends AppCompatActivity implements View.OnClickListener {
+public class AnimActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ScrollAnimView scroll_anim_view;
     private ScrollInnerAnimView scroll_inner_anim_view;
@@ -67,20 +65,50 @@ public class LeonidsActivity extends AppCompatActivity implements View.OnClickLi
         int id = view.getId();
         if (id == R.id.all_anim) {
             allAnim();
+            startScroll();
         } else if (id == R.id.tv_anim1) {
-            test1();
+            startScroll();
         } else if (id == R.id.tv_anim2) {
             test2();
+            startScroll();
         } else if (id == R.id.tv_anim3) {
             test3();
+            startScroll();
         } else if (id == R.id.tv_anim4) {
             test4();
+            startScroll();
         } else if (id == R.id.tv_anim5) {
             test5();
+            startScroll();
         }
     }
 
+    private void test4() {
+        scroll_inner_anim_view.startAnim(10);
+    }
+
     private void test5() {
+
+    }
+
+    private void startScroll() {
+        scroll_anim_view.startScroll();
+        scroll_anim_view.setOutListener(new ScrollAnimView.OuterListener() {
+            @Override
+            public void backValue(float value) {
+                scroll_inner_anim_view.setScrollStatus(value);
+            }
+
+            @Override
+            public void scrollEnd() {
+                circle_view.stopAnim();
+                particle_view.stopAnim();
+                scroll_inner_anim_view.stopAnim();
+            }
+        });
+    }
+
+    private void test3() {
         List<IParticleDraw> list = new ArrayList<>();
         list.add(new StarDraw(this, R.drawable.star_white, 15));
         list.add(new PointStarDraw(this, R.drawable.star, 10));
@@ -89,38 +117,8 @@ public class LeonidsActivity extends AppCompatActivity implements View.OnClickLi
         particle_view.startAnim(list);
     }
 
-    private void test4() {
-        circle_view.startAnim();
-    }
-
-    private void test3() {
-        startFireAnim(scroll_inner_anim_view.addFireView(300, 20));
-        startFireAnim(scroll_inner_anim_view.addFireView(500, 60));
-        startFireAnim(scroll_inner_anim_view.addFireView(700, 40));
-    }
-
-    private void startFireAnim(ImageView imageView) {
-        ParticleSystem particleSystem = new ParticleSystem(this, 150, R.drawable.star_white, 600);
-        // 设置大小范围
-        particleSystem.setScaleRange(0.5f, 0.5f);
-        // 设置速度范围和发射角度范围
-        particleSystem.setSpeedModuleAndAngleRange(0.05f, 0.1f, 0, 360);
-        particleSystem.setFadeOut(200, new DecelerateInterpolator());
-        particleSystem.emit(imageView, 150, 400);
-
-
-        ParticleSystem particleSystem2 = new ParticleSystem(this, 70, R.drawable.star_white, 600);
-        // 设置大小范围
-        particleSystem2.setScaleRange(0.5f, 0.5f);
-        // 设置速度范围和发射角度范围
-        particleSystem2.setSpeedModuleAndAngleRange(0.1f, 0.1f, 0, 360);
-        particleSystem2.setFadeOut(200, new DecelerateInterpolator());
-        particleSystem2.oneShot(imageView, 60);
-    }
-
-
     private void test2() {
-
+        circle_view.startAnim();
     }
 
     private void test1() {
@@ -153,19 +151,10 @@ public class LeonidsActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void allAnim() {
-//        test1();
-//        test2();
-//        test3();
-//        test4();
+        test2();
+        test3();
+        test4();
         test5();
-        scroll_inner_anim_view.startAnim();
-        scroll_anim_view.startScroll();
-        scroll_anim_view.setOutListener(new ScrollAnimView.OuterListener() {
-            @Override
-            public void backValue(float value) {
-                scroll_inner_anim_view.setScrollStatus(value);
-            }
-        });
     }
 
 }
