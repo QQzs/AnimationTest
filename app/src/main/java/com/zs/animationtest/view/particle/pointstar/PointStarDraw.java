@@ -1,4 +1,4 @@
-package com.zs.animationtest.view.particle.PointStar;
+package com.zs.animationtest.view.particle.pointstar;
 
 import android.content.Context;
 import android.os.Handler;

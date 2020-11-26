@@ -1,4 +1,4 @@
-package com.zs.animationtest.view.particle.DriftStar;
+package com.zs.animationtest.view.particle.fire;
 
 import android.content.Context;
 import android.os.Handler;
@@ -7,16 +7,15 @@ import android.os.Message;
 
 import com.zs.animationtest.view.particle.IParticleDraw;
 import com.zs.animationtest.view.particle.ParticleView;
-import com.zs.animationtest.view.particle.PointStar.PointStarDraw;
 
 /**
  * @Author: zs
  * @Date: 2020/11/24 8:05 PM
  * @Description:
  */
-public class DriftStarDraw extends IParticleDraw<DriftStarBean> {
+public class FireDraw extends IParticleDraw<FireBean> {
 
-    private final int ADD_EFFECT_DRIFT_STAR = 2002;
+    private final int ADD_EFFECT_STAR = 1000;
 
     private class EffectHandler extends Handler {
 
@@ -28,31 +27,24 @@ public class DriftStarDraw extends IParticleDraw<DriftStarBean> {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case ADD_EFFECT_DRIFT_STAR:
+                case ADD_EFFECT_STAR:
                     addEffectBean();
                     break;
             }
         }
     }
 
-    public DriftStarDraw(Context context, int resourceId, int maxNum) {
+    public FireDraw(Context context, int resourceId, int maxNum) {
         this(context, resourceId, maxNum, 0);
     }
 
-    public DriftStarDraw(Context context, int resourceId, int maxNum, int delay) {
+    public FireDraw(Context context, int resourceId, int maxNum, int delay) {
         super(context, resourceId, maxNum, delay);
     }
 
     @Override
-    public void initEffectBitmaps() {
-        mBitmapsList.add(ParticleView.getScaleBitmap(originBitmap, 0.3f, 0f));
-        mBitmapsList.add(ParticleView.getScaleBitmap(originBitmap, 0.4f, 0f));
-        mBitmapsList.add(ParticleView.getScaleBitmap(originBitmap, 0.5f, 0f));
-    }
-
-    @Override
     public int getMessage() {
-        return ADD_EFFECT_DRIFT_STAR;
+        return ADD_EFFECT_STAR;
     }
 
     @Override
@@ -61,9 +53,16 @@ public class DriftStarDraw extends IParticleDraw<DriftStarBean> {
     }
 
     @Override
+    public void initEffectBitmaps() {
+        mBitmapsList.add(ParticleView.getScaleBitmap(originBitmap, 0.5f, 0f));
+        mBitmapsList.add(ParticleView.getScaleBitmap(originBitmap, 0.6f, 0f));
+        mBitmapsList.add(ParticleView.getScaleBitmap(originBitmap, 0.7f, 0f));
+    }
+
+    @Override
     public void addEffectBean() {
         if (effectBeanList != null && effectBeanList.size() < maxNum) {
-            effectBeanList.add(new DriftStarBean(mViewWidth, mViewHeight, mBitmapsList));
+            effectBeanList.add(new FireBean(mViewWidth, mViewHeight, mBitmapsList));
             if (mEffectHandler != null) {
                 if (delay > 0) {
                     mEffectHandler.sendEmptyMessageDelayed(getMessage(), mRandom.nextInt(delay));

@@ -1,4 +1,4 @@
-package com.zs.animationtest.view.particle.DriftStar;
+package com.zs.animationtest.view.particle.driftstar;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,7 +8,6 @@ import android.graphics.Point;
 import com.zs.animationtest.view.particle.IParticleBean;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * @Author: zs

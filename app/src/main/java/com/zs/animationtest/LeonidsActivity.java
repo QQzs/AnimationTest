@@ -14,10 +14,10 @@ import com.plattysoft.leonids.ParticleSystem;
 import com.zs.animationtest.view.CircleView;
 import com.zs.animationtest.view.ScrollAnimView;
 import com.zs.animationtest.view.ScrollInnerAnimView;
-import com.zs.animationtest.view.particle.DriftStar.DriftStarDraw;
+import com.zs.animationtest.view.particle.driftstar.DriftStarDraw;
 import com.zs.animationtest.view.particle.IParticleDraw;
 import com.zs.animationtest.view.particle.ParticleView;
-import com.zs.animationtest.view.particle.PointStar.PointStarDraw;
+import com.zs.animationtest.view.particle.pointstar.PointStarDraw;
 import com.zs.animationtest.view.particle.star.StarDraw;
 
 import java.util.ArrayList;
@@ -82,8 +82,8 @@ public class LeonidsActivity extends AppCompatActivity implements View.OnClickLi
 
     private void test5() {
         List<IParticleDraw> list = new ArrayList<>();
-        list.add(new StarDraw(this, R.drawable.star_white, 20));
-        list.add(new PointStarDraw(this, R.drawable.star, 15));
+        list.add(new StarDraw(this, R.drawable.star_white, 15));
+        list.add(new PointStarDraw(this, R.drawable.star, 10));
         list.add(new DriftStarDraw(this, R.drawable.star_white, 20));
         list.add(new DriftStarDraw(this, R.drawable.star_pink, 20));
         particle_view.startAnim(list);
@@ -158,6 +158,7 @@ public class LeonidsActivity extends AppCompatActivity implements View.OnClickLi
 //        test3();
 //        test4();
         test5();
+        scroll_inner_anim_view.startFire();
         scroll_anim_view.startScroll();
     }
 
