@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.util.Log;
 
 import com.zs.animationtest.view.particle.IParticleBean;
 
@@ -44,11 +45,7 @@ class DriftStarBean extends IParticleBean {
     private int pointXSpace;
 
     public DriftStarBean(int viewWidth, int viewHeight, ArrayList<Bitmap> bitmapsList) {
-        this.mViewWidth = viewWidth;
-        this.mViewHeight = viewHeight;
-        this.mBitmapsList = bitmapsList;
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
+        super(viewWidth, viewHeight, bitmapsList);
     }
 
     private void reset() {

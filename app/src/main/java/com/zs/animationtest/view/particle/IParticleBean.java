@@ -14,9 +14,9 @@ import java.util.Random;
  */
 public abstract class IParticleBean {
 
-    public int mViewHeight;
-
     public int mViewWidth;
+
+    public int mViewHeight;
 
     public Paint mPaint;
 
@@ -28,6 +28,14 @@ public abstract class IParticleBean {
      * 产生随机数
      */
     public Random random = new Random();
+
+    public IParticleBean(int viewWidth, int viewHeight, ArrayList<Bitmap> bitmapsList) {
+        this.mViewWidth = viewWidth;
+        this.mViewHeight = viewHeight;
+        this.mBitmapsList = bitmapsList;
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+    }
 
     /**
      * 绘制下一帧

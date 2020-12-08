@@ -28,7 +28,7 @@ public class DriftStarDraw extends IParticleDraw<DriftStarBean> {
             super.handleMessage(msg);
             switch (msg.what) {
                 case ADD_EFFECT_DRIFT_STAR:
-                    addEffectBean();
+                    addParticle();
                     break;
             }
         }
@@ -44,6 +44,7 @@ public class DriftStarDraw extends IParticleDraw<DriftStarBean> {
 
     @Override
     public void initEffectBitmaps() {
+//        mBitmapsList.add(ParticleView.getScaleBitmap(originBitmap, 1f, 0f));
         mBitmapsList.add(ParticleView.getScaleBitmap(originBitmap, 0.3f, 0f));
         mBitmapsList.add(ParticleView.getScaleBitmap(originBitmap, 0.4f, 0f));
         mBitmapsList.add(ParticleView.getScaleBitmap(originBitmap, 0.5f, 0f));
@@ -60,22 +61,8 @@ public class DriftStarDraw extends IParticleDraw<DriftStarBean> {
     }
 
     @Override
-    public void addEffectBean() {
-        if (effectBeanList != null && effectBeanList.size() < maxNum) {
-            effectBeanList.add(new DriftStarBean(mViewWidth, mViewHeight, mBitmapsList));
-            if (mEffectHandler != null) {
-                if (delay > 0) {
-                    mEffectHandler.sendEmptyMessageDelayed(getMessage(), mRandom.nextInt(delay));
-                } else {
-                    mEffectHandler.sendEmptyMessage(getMessage());
-                }
-            }
-        } else {
-            if (mEffectHandler != null) {
-                mEffectHandler.removeCallbacksAndMessages(null);
-            }
-            mEffectHandler = null;
-            mHandlerThread.quit();
-        }
+    public DriftStarBean getParticle() {
+        return new DriftStarBean(mViewWidth, mViewHeight, mBitmapsList);
     }
+
 }

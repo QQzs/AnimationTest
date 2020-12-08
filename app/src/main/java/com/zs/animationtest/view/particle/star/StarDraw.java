@@ -28,7 +28,7 @@ public class StarDraw extends IParticleDraw<StarBean> {
             super.handleMessage(msg);
             switch (msg.what) {
                 case ADD_EFFECT_STAR:
-                    addEffectBean();
+                    addParticle();
                     break;
             }
         }
@@ -60,22 +60,8 @@ public class StarDraw extends IParticleDraw<StarBean> {
     }
 
     @Override
-    public void addEffectBean() {
-        if (effectBeanList != null && effectBeanList.size() < maxNum) {
-            effectBeanList.add(new StarBean(mViewWidth, mViewHeight, mBitmapsList));
-            if (mEffectHandler != null) {
-                if (delay > 0) {
-                    mEffectHandler.sendEmptyMessageDelayed(getMessage(), mRandom.nextInt(delay));
-                } else {
-                    mEffectHandler.sendEmptyMessage(getMessage());
-                }
-            }
-        } else {
-            if (mEffectHandler != null) {
-                mEffectHandler.removeCallbacksAndMessages(null);
-            }
-            mEffectHandler = null;
-            mHandlerThread.quit();
-        }
+    public StarBean getParticle() {
+        return new StarBean(mViewWidth, mViewHeight, mBitmapsList);
     }
+
 }

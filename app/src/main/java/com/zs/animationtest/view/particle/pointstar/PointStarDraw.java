@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import com.zs.animationtest.view.particle.IParticleDraw;
 import com.zs.animationtest.view.particle.ParticleView;
@@ -28,7 +29,7 @@ public class PointStarDraw extends IParticleDraw<PointStarBean> {
             super.handleMessage(msg);
             switch (msg.what) {
                 case ADD_EFFECT_POINT_STAR:
-                    addEffectBean();
+                    addParticle();
                     break;
             }
         }
@@ -60,22 +61,8 @@ public class PointStarDraw extends IParticleDraw<PointStarBean> {
     }
 
     @Override
-    public void addEffectBean() {
-        if (effectBeanList != null && effectBeanList.size() < maxNum) {
-            effectBeanList.add(new PointStarBean(mViewWidth, mViewHeight, mBitmapsList));
-            if (mEffectHandler != null) {
-                if (delay > 0) {
-                    mEffectHandler.sendEmptyMessageDelayed(getMessage(), mRandom.nextInt(delay));
-                } else {
-                    mEffectHandler.sendEmptyMessage(getMessage());
-                }
-            }
-        } else {
-            if (mEffectHandler != null) {
-                mEffectHandler.removeCallbacksAndMessages(null);
-            }
-            mEffectHandler = null;
-            mHandlerThread.quit();
-        }
+    public PointStarBean getParticle() {
+        return new PointStarBean(mViewWidth, mViewHeight, mBitmapsList);
     }
+
 }

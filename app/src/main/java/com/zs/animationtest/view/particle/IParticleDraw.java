@@ -7,8 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.Looper;
-import android.os.Message;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -78,11 +76,6 @@ public abstract class IParticleDraw<T extends IParticleBean> {
     public abstract void initEffectBitmaps();
 
     /**
-     * 初始化每个特效bean，添加进mBitmapsList
-     */
-    public abstract void addEffectBean();
-
-    /**
      * 获取Handler message
      * @return
      */
@@ -93,6 +86,30 @@ public abstract class IParticleDraw<T extends IParticleBean> {
      * @return
      */
     public abstract Handler getEffectHandler();
+
+    public abstract T getParticle();
+
+    /**
+     * 初始化每个特效bean，添加进mBitmapsList
+     */
+    public void addParticle(){
+        if (effectBeanList != null && effectBeanList.size() < maxNum) {
+            effectBeanList.add(getParticle());
+            if (mEffectHandler != null) {
+                if (delay > 0) {
+                    mEffectHandler.sendEmptyMessageDelayed(getMessage(), mRandom.nextInt(delay));
+                } else {
+                    mEffectHandler.sendEmptyMessage(getMessage());
+                }
+            }
+        } else {
+            if (mEffectHandler != null) {
+                mEffectHandler.removeCallbacksAndMessages(null);
+            }
+            mEffectHandler = null;
+            mHandlerThread.quit();
+        }
+    }
 
     public ArrayList<T> getEffectBeanList() {
         return effectBeanList;

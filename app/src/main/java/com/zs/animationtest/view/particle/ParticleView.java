@@ -2,6 +2,7 @@ package com.zs.animationtest.view.particle;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -165,7 +166,9 @@ public class ParticleView extends SurfaceView implements SurfaceHolder.Callback 
     public static Bitmap getScaleBitmap(Bitmap bitmap, float scale, float rotate) {
         try {
             Matrix matrix = new Matrix();
-            matrix.postScale(scale, scale);
+            if (scale != 1f) {
+                matrix.postScale(scale, scale);
+            }
             matrix.postRotate(rotate);
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();

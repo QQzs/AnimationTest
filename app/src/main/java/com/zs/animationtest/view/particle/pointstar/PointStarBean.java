@@ -31,11 +31,7 @@ class PointStarBean extends IParticleBean {
     private int rotationSpace;
 
     public PointStarBean(int viewWidth, int viewHeight, ArrayList<Bitmap> bitmapsList) {
-        this.mViewWidth = viewWidth;
-        this.mViewHeight = viewHeight;
-        this.mBitmapsList = bitmapsList;
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
+        super(viewWidth, viewHeight, bitmapsList);
     }
 
     private void reset() {
